@@ -5,4 +5,6 @@ optional/
 .west/
 zmk/
 zephyr/
+!config/corne_rgb_module/zephyr/
+!config/corne_rgb_module/zephyr/module.yml
 device_info/
