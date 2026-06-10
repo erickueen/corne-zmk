@@ -15,13 +15,13 @@ Use Docker-based builds from the repo root.
 Left:
 
 ```bash
-docker run --rm -v "$PWD":/workspaces/zmk-config -w /workspaces/zmk-config -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*' zmkfirmware/zmk-build-arm:stable west build -s zmk/app -d build/corne_left -b nice_nano -- -DSHIELD=corne_left -DZMK_CONFIG=/workspaces/zmk-config/config -DZMK_EXTRA_MODULES=/workspaces/zmk-config/config/corne_rgb_module -DZephyr_DIR=/workspaces/zmk-config/zephyr/share/zephyr-package/cmake
+docker run --rm -v "$PWD":/workspaces/zmk-config -w /workspaces/zmk-config -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*' zmkfirmware/zmk-build-arm:stable west build -s zmk/app -d build/corne_left -b nice_nano/nrf52840/zmk -- -DSHIELD=corne_left -DZMK_CONFIG=/workspaces/zmk-config/config -DZMK_EXTRA_MODULES=/workspaces/zmk-config/config/corne_rgb_module -DZephyr_DIR=/workspaces/zmk-config/zephyr/share/zephyr-package/cmake
 ```
 
 Right:
 
 ```bash
-docker run --rm -v "$PWD":/workspaces/zmk-config -w /workspaces/zmk-config -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*' zmkfirmware/zmk-build-arm:stable west build -s zmk/app -d build/corne_right -b nice_nano -- -DSHIELD=corne_right -DZMK_CONFIG=/workspaces/zmk-config/config -DZMK_EXTRA_MODULES=/workspaces/zmk-config/config/corne_rgb_module -DZephyr_DIR=/workspaces/zmk-config/zephyr/share/zephyr-package/cmake
+docker run --rm -v "$PWD":/workspaces/zmk-config -w /workspaces/zmk-config -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*' zmkfirmware/zmk-build-arm:stable west build -s zmk/app -d build/corne_right -b nice_nano/nrf52840/zmk -- -DSHIELD=corne_right -DZMK_CONFIG=/workspaces/zmk-config/config -DZMK_EXTRA_MODULES=/workspaces/zmk-config/config/corne_rgb_module -DZephyr_DIR=/workspaces/zmk-config/zephyr/share/zephyr-package/cmake
 ```
 
 Artifacts:
