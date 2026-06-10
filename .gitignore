@@ -1,0 +1,9 @@
+.github
+build/
+*.uf2
+modules/
+optional/
+.west/
+zmk/
+zephyr/
+device_info/
