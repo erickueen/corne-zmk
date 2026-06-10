@@ -102,6 +102,15 @@ struct rgb_status_overlay_state {
 static struct rgb_status_overlay_state status_overlay;
 extern struct k_timer underglow_tick;
 
+static const struct led_rgb catppuccin_green = {.r = 0x40, .g = 0xa0, .b = 0x2b};
+static const struct led_rgb catppuccin_yellow = {.r = 0xdf, .g = 0x8e, .b = 0x1d};
+static const struct led_rgb catppuccin_red = {.r = 0xd2, .g = 0x0f, .b = 0x39};
+static const struct led_rgb catppuccin_blue = {.r = 0x1e, .g = 0x66, .b = 0xf5};
+#if IS_ENABLED(CONFIG_ZMK_BLE) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+static const struct led_rgb catppuccin_mauve = {.r = 0x88, .g = 0x39, .b = 0xef};
+static const struct led_rgb catppuccin_lavender = {.r = 0x72, .g = 0x87, .b = 0xfd};
+#endif
+
 static struct zmk_led_hsb hsb_scale_min_max(struct zmk_led_hsb hsb);
 static struct led_rgb hsb_to_rgb(struct zmk_led_hsb hsb);
 
@@ -290,13 +299,13 @@ static void apply_status_overlay(int64_t now) {
         struct led_rgb bt_color;
 
         if (i == active_profile) {
-            bt_color = (struct led_rgb){.r = 255, .g = 255, .b = 255};
+            bt_color = catppuccin_lavender;
         } else if (i < profile_count && zmk_ble_profile_is_connected(i)) {
-            bt_color = (struct led_rgb){.r = 0, .g = 255, .b = 0};
+            bt_color = catppuccin_green;
         } else if (i < profile_count && zmk_ble_profile_is_open(i)) {
-            bt_color = (struct led_rgb){.r = 160, .g = 0, .b = 255};
+            bt_color = catppuccin_mauve;
         } else {
-            bt_color = (struct led_rgb){.r = 255, .g = 0, .b = 0};
+            bt_color = catppuccin_red;
         }
 
         pixels[led] = scale_rgb_brightness(bt_color, MAGIC_LAYER_BRIGHTNESS_PCT);
@@ -306,8 +315,7 @@ static void apply_status_overlay(int64_t now) {
     int usb_led = position_to_led_index(usb_status_position);
     if (usb_led >= 0 && usb_led < STRIP_NUM_PIXELS) {
         if (zmk_usb_is_powered()) {
-            pixels[usb_led] = scale_rgb_brightness((struct led_rgb){.r = 0, .g = 80, .b = 255},
-                                                   MAGIC_LAYER_BRIGHTNESS_PCT);
+            pixels[usb_led] = scale_rgb_brightness(catppuccin_blue, MAGIC_LAYER_BRIGHTNESS_PCT);
         } else {
             pixels[usb_led] = (struct led_rgb){.r = 0, .g = 0, .b = 0};
         }
@@ -728,11 +736,11 @@ int zmk_rgb_underglow_show_status(void) {
     }
 
     if (percent >= 50) {
-        status_overlay.color = (struct led_rgb){.r = 0, .g = 255, .b = 0};
+        status_overlay.color = catppuccin_green;
     } else if (percent >= 20) {
-        status_overlay.color = (struct led_rgb){.r = 255, .g = 180, .b = 0};
+        status_overlay.color = catppuccin_yellow;
     } else {
-        status_overlay.color = (struct led_rgb){.r = 255, .g = 0, .b = 0};
+        status_overlay.color = catppuccin_red;
     }
 
     status_overlay.color = scale_rgb_brightness(status_overlay.color, MAGIC_LAYER_BRIGHTNESS_PCT);
